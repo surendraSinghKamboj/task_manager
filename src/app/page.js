@@ -6,6 +6,7 @@ import { FaBuilding } from 'react-icons/fa'
 import Link from 'next/link'
 
 export default function Home() {
+  
   const [state, formAction] = useFormState(action, null);
 
   return (
