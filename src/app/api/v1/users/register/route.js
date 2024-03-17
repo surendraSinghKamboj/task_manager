@@ -22,8 +22,6 @@ export const POST = async (req) => {
 
     // Hash the user's password with SHA512
     const hashedPassword = generateSHA512(password);
-
-    console.log(hashedPassword);
     // Create a new User in Database
     const newUser = await User.create({
       name,
