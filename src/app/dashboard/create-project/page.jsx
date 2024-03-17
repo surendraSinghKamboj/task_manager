@@ -2,8 +2,11 @@
 
 import React, { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const ProjectForm = () => {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     projectName: "",
     description: "",
@@ -24,9 +27,15 @@ const ProjectForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post("/api/v1/projects/create", {
-        formData,
+        data: formData,
       });
-    } catch (error) {}
+      if (response.headers && response.headers.location) {
+        const locationHeader = response.headers.location;
+        router.push(locationHeader);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

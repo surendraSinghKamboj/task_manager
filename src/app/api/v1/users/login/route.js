@@ -42,13 +42,14 @@ export const POST = async (req) => {
 
     const token = generateToken({ _id: user._id, email });
 
-
     const response = NextResponse.json({ message: "Login successful." });
+    const expires = new Date();
+    expires.setTime(expires.getTime() + 72 * 60 * 60 * 1000); // 72 hours * 60 minutes * 60 seconds * 1000 milliseconds per second
     response.headers.set(
       "Set-Cookie",
-      `auth=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=${3600}`
+      `auth=${token}; Path=/; HttpOnly; Secure; SameSite=Strict; Expires=${expires.toUTCString()}`
     );
-   
+
     response.headers.set("location", "/dashboard");
 
     return response;
