@@ -11,17 +11,25 @@ const taskSchema = new mongoose.Schema(
       type: String,
       enum: ["Developer Tasks", "Designer Tasks", "Creative Tasks"],
     },
-    description:{
-        type:String,
+    description: {
+      type: String,
     },
     status: {
       type: String,
-      enum: ["Not Assigned", "Assigned", "In Progress", "Completed", "Fixing","Fixed"],
-      required:true
+      enum: [
+        "Not Assigned",
+        "Assigned",
+        "In Progress",
+        "Completed",
+        "Fixing",
+        "Fixed",
+      ],
+      required: true,
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User", 
+      ref: "User",
+      required: true,
     },
     assignedTo: {
       type: mongoose.Schema.Types.ObjectId,

@@ -7,15 +7,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className="">
-        <div className="grid grid-cols-12">
-          <aside className="col-span-3 sm:col-span-2">
-            <Navbar />
-          </aside>
-          <div className="col-span-9 sm:col-span-10">{children}</div>
-        </div>
-      </body>
-    </html>
+    <div className="grid grid-cols-12">
+      <aside className="col-span-3 sm:col-span-2">
+        <Navbar />
+      </aside>
+      <div className="col-span-9 sm:col-span-10">{children}</div>
+    </div>
   );
 }

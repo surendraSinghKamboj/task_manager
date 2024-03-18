@@ -5,6 +5,7 @@ import { connectToDatabase } from "@/db/dbconnect";
 import { verifyToken } from "@/libs/verify_token";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { Task } from "@/models/Task";
 
 export const projectById = async (_id) => {
   const auth = cookies().get("auth")?.value;
@@ -21,7 +22,9 @@ export const projectById = async (_id) => {
     }
     let createdBy = verify.decoded.name;
 
-    return { project, createdBy };
+    const tasks = await Task.find({ project: _id });
+
+    return { project, createdBy, tasks };
   } catch (error) {
     console.log(error);
     return false;
