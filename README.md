@@ -34,20 +34,27 @@ Project Manager is a web application designed to streamline project management f
    cd project-manager
 Install dependencies:
 
+```
 npm install
+```
 # or
+```
 yarn install
-
+```
 
 Set up environment variables:
 Create a .env file in the root directory and add necessary environment variables such as database connection strings, JWT secret, etc.
 
 Run the development server:
 
+```
 npm run dev
-# or
-yarn dev
+```
 
+# or
+```
+yarn dev
+```
 
 Open http://localhost:3000 in your browser to access the application.
 Contributing
