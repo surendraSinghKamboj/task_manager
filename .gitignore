@@ -9,6 +9,8 @@
 # testing
 /coverage
 
+# eslint configuration  error
+/eslintrc
 # next.js
 /.next/
 /out/
