@@ -1,6 +1,7 @@
 import React from "react";
 
-const UpdateTask = () => {
+const UpdateTask = ({params}) => {
+  console.log(params);
   return <div>UpdateTask</div>;
 };
 
