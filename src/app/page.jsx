@@ -45,14 +45,14 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full h-screen flex justify-start bg-purple-500 items-center flex-col">
+    <div className="w-full h-screen flex justify-start bg-gradient-to-l from-primary-600 to-secondary-500 items-center flex-col">
       <form
         onSubmit={submitLogin}
         className="rounded-bl-full rounded-tr-full flex bg-white px-96 pb-96 pt-48 flex-col justify-center items-center"
       >
-        <FaBuilding className="text-8xl text-purple-600" />
+        <FaBuilding className="text-8xl text-secondary-600" />
         <input
-          className="w-96 h-9 px-2 mt-2 rounded-md border-2 border-purple-600 placeholder:text-purple-600"
+          className="w-96 h-9 px-2 mt-2 rounded-md border-2 border-secondary-600 placeholder:text-secondary-600"
           placeholder="Enter your Email"
           type="email"
           name="email"
@@ -60,7 +60,7 @@ export default function Home() {
           onChange={handleChnage}
         />
         <input
-          className="w-96 h-9 px-2 mt-2 rounded-md border-2 border-purple-600 placeholder:text-purple-600"
+          className="w-96 h-9 px-2 mt-2 rounded-md border-2 border-secondary-600 placeholder:text-secondary-600"
           type="password"
           placeholder="Enter your Password"
           name="password"
@@ -68,13 +68,13 @@ export default function Home() {
           onChange={handleChnage}
         />
         <input
-          className="w-96 h-9 px-2 mt-2 rounded-md cursor-pointer border-2 border-purple-600 hover:bg-purple-600 hover:text-white"
+          className="w-96 h-9 px-2 mt-2 rounded-md cursor-pointer border-2 border-secondary-600 hover:bg-secondary-600 hover:text-white"
           type="submit"
           value="Login now"
         />
         <p className="mt-4">
           New user{" "}
-          <Link href={"/register"} className="text-purple-600">
+          <Link href={"/register"} className="text-secondary-600">
             Register now !
           </Link>{" "}
         </p>

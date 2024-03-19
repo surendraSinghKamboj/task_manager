@@ -1,8 +1,22 @@
+import { fetchUser } from "@/actions/dashboard";
+import ProjectCard from "@/components/project/ProjectCard";
 import React from "react";
 
-const page = async () => {
-
-  return <div className="w-full"></div>;
+const Page = async () => {
+  const data = await fetchUser();
+  return (
+    <div className="w-full">
+      <p>You have {data.projectsNumber} Projects.</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {data.projects &&
+          data.projects.map((project) => (
+            <div key={project._id}>
+              <ProjectCard project={project} />
+            </div>
+          ))}
+      </div>
+    </div>
+  );
 };
 
-export default page;
+export default Page;
