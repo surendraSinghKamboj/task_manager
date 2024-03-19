@@ -8,7 +8,8 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const [data, setData] = useState({});
   const [state, setState] = useState({ message: "", type: false });
-  const handleChange = (e) => setData({ ...data, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setData({ ...data, [e.target.name]: e.target.value });
   const router = useRouter();
 
   const submitRegister = async (e) => {
@@ -58,10 +59,10 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full h-screen flex justify-center items-center flex-col">
+    <div className="w-full h-screen bg-gradient-to-l from-primary-600 to-secondary-500 flex justify-start items-center flex-col">
       <span className="text-green-600 hidden bg-green-200"></span>
       <span className="text-red-600 hidden bg-red-200"></span>
-      <div className={`min-h-8 container mx-auto text-center`}>
+      <div className={`min-h-8 absolute top-0 container mx-auto text-center`}>
         {state.message && (
           <span
             className={`${
@@ -76,11 +77,11 @@ export default function Home() {
       </div>
       <form
         onSubmit={submitRegister}
-        className="rounded-md flex flex-col justify-center items-center"
+        className="rounded-bl-full rounded-tr-full  bg-white px-96 pb-96 pt-32  flex flex-col justify-center items-center"
       >
-        <FaBuilding className="text-8xl text-purple-600" />
+        <FaBuilding className="text-8xl text-secondary-600" />
         <input
-          className="w-96 h-9 px-2 mt-2 rounded-md border-2 border-purple-600 placeholder:text-purple-600"
+          className="w-96 h-9 px-2 mt-2 rounded-md border-2 border-secondary-600 placeholder:text-secondary-600"
           placeholder="Full name"
           type="text"
           name="name"
@@ -89,7 +90,7 @@ export default function Home() {
         />
 
         <input
-          className="w-96 h-9 px-2 mt-2 rounded-md border-2 border-purple-600 placeholder:text-purple-600"
+          className="w-96 h-9 px-2 mt-2 rounded-md border-2 border-secondary-600 placeholder:text-secondary-600"
           placeholder="Enter your Email"
           type="email"
           name="email"
@@ -98,7 +99,7 @@ export default function Home() {
         />
 
         <input
-          className="w-96 h-9 px-2 mt-2 rounded-md border-2 border-purple-600 placeholder:text-purple-600"
+          className="w-96 h-9 px-2 mt-2 rounded-md border-2 border-secondary-600 placeholder:text-secondary-600"
           placeholder="Enter your Phone number"
           type="number"
           name="contact"
@@ -107,7 +108,7 @@ export default function Home() {
         />
 
         <input
-          className="w-96 h-9 px-2 mt-2 rounded-md border-2 border-purple-600 placeholder:text-purple-600"
+          className="w-96 h-9 px-2 mt-2 rounded-md border-2 border-secondary-600 placeholder:text-secondary-600"
           type="password"
           placeholder="Enter your Password"
           name="password"
@@ -116,17 +117,17 @@ export default function Home() {
         />
 
         <input
-          className="w-96 h-9 px-2 mt-2 rounded-md cursor-pointer border-2 border-purple-600 hover:bg-purple-600 hover:text-white"
+          className="w-96 h-9 px-2 mt-2 rounded-md cursor-pointer border-2 border-secondary-600 hover:bg-secondary-600 hover:text-white transition-all duration-500"
           type="submit"
           value="Register"
         />
+        <p className="mt-4">
+          Already Registered{" "}
+          <Link href={"/"} className="text-secondary-600">
+            Login now !
+          </Link>{" "}
+        </p>
       </form>
-      <p className="mt-4">
-        Already Registered{" "}
-        <Link href={"/"} className="text-purple-600">
-          Login now !
-        </Link>{" "}
-      </p>
     </div>
   );
 }
