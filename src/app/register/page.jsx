@@ -8,7 +8,8 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const [data, setData] = useState({});
   const [state, setState] = useState({ message: "", type: false });
-  const handleChange = (e) => setData({ ...data, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setData({ ...data, [e.target.name]: e.target.value });
   const router = useRouter();
 
   const submitRegister = async (e) => {
@@ -58,10 +59,10 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full h-screen flex justify-center items-center flex-col">
+    <div className="w-full h-screen bg-purple-500 flex justify-start items-center flex-col">
       <span className="text-green-600 hidden bg-green-200"></span>
       <span className="text-red-600 hidden bg-red-200"></span>
-      <div className={`min-h-8 container mx-auto text-center`}>
+      <div className={`min-h-8 absolute top-0 container mx-auto text-center`}>
         {state.message && (
           <span
             className={`${
@@ -76,7 +77,7 @@ export default function Home() {
       </div>
       <form
         onSubmit={submitRegister}
-        className="rounded-md flex flex-col justify-center items-center"
+        className="rounded-bl-full rounded-tr-full  bg-white px-96 pb-96 pt-32  flex flex-col justify-center items-center"
       >
         <FaBuilding className="text-8xl text-purple-600" />
         <input
@@ -120,13 +121,13 @@ export default function Home() {
           type="submit"
           value="Register"
         />
+        <p className="mt-4">
+          Already Registered{" "}
+          <Link href={"/"} className="text-purple-600">
+            Login now !
+          </Link>{" "}
+        </p>
       </form>
-      <p className="mt-4">
-        Already Registered{" "}
-        <Link href={"/"} className="text-purple-600">
-          Login now !
-        </Link>{" "}
-      </p>
     </div>
   );
 }

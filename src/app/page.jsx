@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const [data, setData] = useState({});
   const [state, setState] = useState({ message: "", type: false });
-  const router = useRouter()
+  const router = useRouter();
 
   const handleChnage = (e) =>
     setData({ ...data, [e.target.name]: e.target.value });
@@ -45,10 +45,10 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full h-screen flex justify-center items-center flex-col">
+    <div className="w-full h-screen flex justify-start bg-purple-500 items-center flex-col">
       <form
         onSubmit={submitLogin}
-        className="rounded-md flex flex-col justify-center items-center"
+        className="rounded-bl-full rounded-tr-full flex bg-white px-96 pb-96 pt-48 flex-col justify-center items-center"
       >
         <FaBuilding className="text-8xl text-purple-600" />
         <input
@@ -72,13 +72,13 @@ export default function Home() {
           type="submit"
           value="Login now"
         />
+        <p className="mt-4">
+          New user{" "}
+          <Link href={"/register"} className="text-purple-600">
+            Register now !
+          </Link>{" "}
+        </p>
       </form>
-      <p className="mt-4">
-        New user{" "}
-        <Link href={"/register"} className="text-purple-600">
-          Register now !
-        </Link>{" "}
-      </p>
     </div>
   );
 }
