@@ -24,7 +24,7 @@ export const POST = async (req) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      new NextResponse(
+      return new NextResponse(
         JSON.stringify({ message: "Email or Password Incorrect" }),
         { status: 401, "Content-Type": "application/json" } // 401 Internal Server Error
       );
@@ -34,7 +34,7 @@ export const POST = async (req) => {
     const hashedPassword = generateSHA512(password);
 
     if (hashedPassword !== user.password) {
-      new NextResponse(
+      return new NextResponse(
         JSON.stringify({ message: "Email or Password Incorrect" }),
         { status: 401, "Content-Type": "application/json" } // 401 Internal Server Error
       );

@@ -7,6 +7,7 @@ export const POST = async (req) => {
   const cookieStore = cookies(req);
   const authCookie = cookieStore.get("auth");
 
+  // console.log(authCookie);
   try {
     if (!authCookie || !authCookie.value) {
       const response = NextResponse.json({
@@ -20,7 +21,7 @@ export const POST = async (req) => {
       data: { projectName, description, techStack, appType, gitLink, uiLink },
     } = await req.json();
 
-    const verify = verifyToken(authCookie.value);
+    const verify =await verifyToken(authCookie.value);
     if (!verify.valid) {
       const response = NextResponse.json({
         message: "Invalid Token.",
