@@ -1,13 +1,11 @@
 import { projectById } from "@/actions/project";
 import React from "react";
-// import Link from "next/link";
+import Link from "next/link";
 
-const ProjectDetails = async ({ params: { projectId } }) => {
-  const data = await projectById(projectId);
 
-  // console.log(project);
-  /*
-        {
+//  --------------------------------------------------------------------------------------------
+/*
+{
   project: {
     _id: new ObjectId('65f79775b96a13627df2cd94'),
     projectName: 'Augse Backend',
@@ -23,7 +21,12 @@ const ProjectDetails = async ({ params: { projectId } }) => {
   createdBy: 'Surendra Singh kamboj',
   tasks: []
 }
-  */
+*/
+//  --------------------------------------------------------------------------------------------  
+
+
+const ProjectDetails = async ({ params: { projectId } }) => {
+  const data = await projectById(projectId);
 
   const { project, createdBy, tasks } = data;
 

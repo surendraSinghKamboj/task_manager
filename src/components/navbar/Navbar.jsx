@@ -24,7 +24,7 @@ const Navbar = () => {
             Users
           </li>
         </Link>
-        <Link href={`/dashboard/setting`}>
+        <Link href={`/dashboard/settings`}>
           {" "}
           <li className="hover:text-primary-800 hover:bg-white p-2 cursor-pointer transition-all duration-300 transform hover:scale-105">
             Setting
