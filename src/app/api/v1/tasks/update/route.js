@@ -1,4 +1,4 @@
-import Project from "@/models/Projects";
+import Task from "@/models/Task";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { connectToDatabase } from "@/db/dbconnect";
@@ -10,38 +10,41 @@ export const PUT = async (req) => {
   try {
     if (!authCookie || !authCookie.value) {
       const response = NextResponse.json({
-        message: "no Token.",
+        message: "No token .",
       });
       response.headers.set("location", "/");
       return response;
     }
 
     const {
-      projectId,
-      projectName,
+      taskId,
+      taskName,
+      type,
       description,
-      techStack,
-      appType,
-      gitLink,
-      uiLink,
+      status,
+      assignedTo,
+      startedOn,
+      completedInTime,
+      deadline,
+      project,
     } = await req.json();
 
     const verify = await verifyToken(authCookie.value);
     if (!verify.valid) {
       const response = NextResponse.json({
-        message: "Invalid Token.",
+        message: "Invalid token.",
       });
       response.headers.set("location", "/");
       return response;
     }
 
-    await connectToDatabase();
+    connectToDatabase();
 
-    const existingProject = await Project.findById(projectId);
+    const existingTask = await Task.findById(taskId);
 
-    if (!existingProject) {
+    if (!existingTask) {
       return new NextResponse(
-        JSON.stringify({ message: "Project Doesn't Exist." }),
+        JSON.stringify({ message: "Task doesn't exist." }),
         {
           status: 404,
           headers: { "Content-Type": "application/json", Server: "Apache" },
@@ -49,42 +52,39 @@ export const PUT = async (req) => {
       );
     }
 
-    const updatedProject = await Project.findByIdAndUpdate(
-      projectId,
+    const updatedTask = await Task.findByIdAndUpdate(
+      taskId,
       {
-        projectName,
+        taskName,
+        type,
         description,
-        techStack: techStack.split(","),
-        appType,
-        gitLink,
-        uiLink,
+        status,
+        assignedTo,
+        startedOn,
+        completedInTime,
+        deadline,
+        project,
       },
       { new: true }
     );
 
-    if (!updatedProject) {
+    if (!updatedTask) {
       const response = NextResponse.json({
-        message: "Project not found.",
+        message: "Task not found.",
       });
       response.headers.set("Content-Type", "application/json");
       return response;
     }
 
-    // console.log("Project before update:", existingProject);
-    // console.log("Project after update:", updatedProject);
-
     const response = NextResponse.json({
-      message: "project updation completed.",
+      message: "Task update completed.",
     });
-    response.headers.set(
-      "location",
-      `/dashboard/projects/${updatedProject._id}`
-    );
+    response.headers.set("location", `/dashboard/tasks/${updatedTask._id}`);
     response.headers.set("Content-Type", "application/json");
     return response;
   } catch (error) {
     console.error(error);
-    return NextResponse.error("error got on updation.", {
+    return NextResponse.error("error got task updation.", {
       status: 500,
     });
   }
