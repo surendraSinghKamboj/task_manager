@@ -22,7 +22,7 @@ export const projectById = async (_id) => {
     }
     let createdBy = verify.decoded.name;
 
-    const tasks = await Task.find({ project: _id });
+    const tasks = await Task.find({ project: _id }).populate("createdBy", "name");
 
     return { project, createdBy, tasks };
   } catch (error) {
