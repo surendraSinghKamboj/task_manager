@@ -1,9 +1,12 @@
-import React from 'react'
+import AddUsers from "@/components/userspage/AddUsers";
+import React from "react";
 
 const User = () => {
   return (
-    <div>User</div>
-  )
-}
+    <div>
+      <AddUsers />
+    </div>
+  );
+};
 
-export default User
+export default User;
