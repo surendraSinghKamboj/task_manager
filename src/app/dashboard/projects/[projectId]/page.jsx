@@ -106,7 +106,7 @@ const ProjectDetails = async ({ params: { projectId } }) => {
       {tasks && tasks.length === 0 ? (
         <NoTask projectId={project._id} />
       ) : (
-        <TaskRow data={tasks} />
+        <TaskRow data={tasks} projectId={project._id} />
       )}
     </>
   );

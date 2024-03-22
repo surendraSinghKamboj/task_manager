@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import { useState } from "react";
 
@@ -18,7 +17,7 @@ const AddUsers = () => {
           placeholder="Enter email"
           className="w-56 sm:w-96 border-gray-400 border focus:outline-1 focus:outline-secondary-500 px-2 py-1 rounded-lg"
         />
-        
+
       </div>
     </div>
   );
