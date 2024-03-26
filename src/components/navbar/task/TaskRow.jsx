@@ -1,5 +1,5 @@
 import React from "react";
-
+import Link from "next/link";
 /* ------------------------------------------------------------------------------------------------------------------
       
                                                  {
@@ -23,7 +23,7 @@ import React from "react";
 
 // Funnction for Row rendering
 
-const TaskRow = ({ data }) => {
+const TaskRow = ({ data, projectId }) => {
   return (
     <div className="container mx-auto h-96 max-h-96 overflow-y-scroll no-scrollbar bg-gray-200 rounded-md shadow-md">
       <table className="w-full border border-gray-300 relative">
@@ -47,7 +47,13 @@ const TaskRow = ({ data }) => {
                 className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
               >
                 <td className="border px-4 py-2">{index + 1}</td>
-                <td className="border px-4 py-2">{task.taskName}</td>
+                <td className="border px-4 py-2">
+                  <Link
+                    href={`/dashboard/projects/${projectId}/tasks/${task._id}`}
+                  >
+                    {task.taskName}
+                  </Link>
+                </td>
                 <td className="border px-4 py-2">{task.type}</td>
                 {/* <td className="border px-4 py-2">{task.description}</td> */}
                 <td className="border px-4 py-2">{task.status}</td>

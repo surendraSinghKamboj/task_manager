@@ -2,6 +2,7 @@ import { projectById } from "@/actions/project";
 import React from "react";
 import Link from "next/link";
 import { FaFigma, FaGithub } from "react-icons/fa";
+import { MdAddTask } from "react-icons/md";
 import { convertDateTime } from "@/libs/dateTime";
 import NoTask from "@/components/navbar/task/NoTask";
 import TaskRow from "@/components/navbar/task/TaskRow";
@@ -41,7 +42,6 @@ const ProjectDetails = async ({ params: { projectId } }) => {
       <div className="w-full p-4 flex flex-wrap justify-center sm:justify-start items-center">
         <div className="flex relative flex-col p-2 min-h-96 shadow shadow-secondary-300">
           <h3 className="text-2xl font-semibold">{project.projectName}</h3>
-
           <p className="text-gray-400">{project.appType}</p>
           <span className="mb-4 text-gray-500 cursor-pointer">{createdBy}</span>
           <div className="flex gap-2 flex-wrap">
@@ -70,6 +70,9 @@ const ProjectDetails = async ({ params: { projectId } }) => {
           <span className="absolute bottom-2 left-2 text-gray-400">
             Created At: {convertDateTime(project.createdAt)}
           </span>
+          <Link href={`/dashboard/projects/${projectId}/tasks/create`}>
+            <MdAddTask className="text-3xl text-green-600 hover:opacity-80 hover:scale-125 transition-all duration-700 absolute right-2 bottom-2" />
+          </Link>
         </div>
         {/* Project Description */}
         <div className="min-h-96 container sm:w-auto mx-auto m-2">
@@ -100,7 +103,11 @@ const ProjectDetails = async ({ params: { projectId } }) => {
       
      ------------------------------------------------------------------------------------------------------------------ */}
 
-      {tasks && tasks.length === 0 ? <NoTask projectId={project._id} /> : <TaskRow data={tasks} />}
+      {tasks && tasks.length === 0 ? (
+        <NoTask projectId={project._id} />
+      ) : (
+        <TaskRow data={tasks} projectId={project._id} />
+      )}
     </>
   );
 };
