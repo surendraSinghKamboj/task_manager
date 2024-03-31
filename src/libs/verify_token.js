@@ -22,7 +22,7 @@ export async function verifyToken(token) {
       valid: true,
       decoded: {
         ...decoded,
-        name: user.name, // Add user's name to the decoded token
+        name: user.name, 
       },
     };
   } catch (err) {
