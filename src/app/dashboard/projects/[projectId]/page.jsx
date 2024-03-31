@@ -40,7 +40,7 @@ const ProjectDetails = async ({ params: { projectId } }) => {
     </div>
   ) : (
     <>
-      <AddUser />
+      <AddUser projectId={projectId} />
       <div className="w-full p-4 flex flex-wrap justify-center sm:justify-start items-center">
         <div className="flex relative flex-col p-2 min-h-96 shadow shadow-secondary-300">
           <h3 className="text-2xl font-semibold">{project.projectName}</h3>

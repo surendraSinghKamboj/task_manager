@@ -1,12 +1,43 @@
 "use client";
 
+import { makeRequest } from "@/actions/request";
 import { searchUsers } from "@/actions/users";
 import React, { useEffect, useState } from "react";
 import { IoMdPersonAdd } from "react-icons/io";
+import { ToastContainer, toast } from "react-toastify";
 
-const AddUser = () => {
+const AddUser = ({ projectId }) => {
   const [input, setInput] = useState("");
   const [data, setData] = useState([]);
+  // const [reqStatus, setReqStatus] = useState({ status: false, message: "" });
+
+  const showToastMessage = (reqStatus) => {
+    if (reqStatus.status) {
+      toast.info(reqStatus.message);
+    } else {
+      toast.error(reqStatus.message);
+    }
+  };
+
+  const handleRequest = async (userId) => {
+    try {
+      const response = await makeRequest({ projectId, userId });
+      if (!response) {
+        showToastMessage({
+          status: false,
+          message: "Client Side Error.",
+        });
+      }
+
+      showToastMessage(JSON.parse(response));
+    } catch (error) {
+      console.log(error);
+      showToastMessage({
+        status: false,
+        message: "Check your Internet Connection",
+      });
+    }
+  };
 
   useEffect(() => {
     let timeoutId;
@@ -44,6 +75,7 @@ const AddUser = () => {
 
   return (
     <div className="mt-4 ml-4 group max-w-fit">
+      <ToastContainer />
       <IoMdPersonAdd className="text-3xl text-secondary-600 hover:scale-110 transition-all duration-700 cursor-pointer" />
 
       <form className="hidden group-hover:block absolute z-20">
@@ -65,6 +97,7 @@ const AddUser = () => {
         {data &&
           data.map((item) => (
             <div
+              onClick={() => handleRequest(item._id)}
               key={item._id}
               className="flex flex-col bg-secondary-200 hover:bg-primary-600 cursor-pointer hover:text-white px-2 justify-center items-start"
             >
