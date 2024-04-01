@@ -42,6 +42,7 @@ export const fetchProfile = async () => {
   }
 
   return {
+    _id: user._id,
     name: user.name,
     email: user.email,
     contact: user.contact,
