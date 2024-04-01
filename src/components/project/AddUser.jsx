@@ -97,7 +97,10 @@ const AddUser = ({ projectId }) => {
         {data &&
           data.map((item) => (
             <div
-              onClick={() => handleRequest(item._id)}
+              onClick={() => {
+                handleRequest(item._id);
+                setData((prev) => []);
+              }}
               key={item._id}
               className="flex flex-col bg-secondary-200 hover:bg-primary-600 cursor-pointer hover:text-white px-2 justify-center items-start"
             >
