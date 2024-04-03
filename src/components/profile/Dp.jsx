@@ -6,14 +6,15 @@ import React, { useState } from "react";
 import { saveFile } from "@/actions/files";
 import { extractFileName } from "@/libs/extractFilename";
 
-const Dp = ({ photo }) => {
+const Dp = (props) => {
   const [imageSrc, setImageSrc] = useState("");
 
   const handleUpload = async (file) => {
     const formData = new FormData();
     formData.append("image", file);
     const res = await saveFile(formData);
-    console.log(res);
+    const response = JSON.parse(res);
+    console.log(response);
   };
 
   const handleChange = (e) => {
@@ -32,9 +33,13 @@ const Dp = ({ photo }) => {
   return (
     <>
       <div className="relative">
-        {photo ? (
+        {props.photo ? (
           <Image
-            src={imageSrc ? imageSrc : "/profile/pic/" + extractFileName(photo)}
+            src={
+              imageSrc
+                ? imageSrc
+                : "/profile/pic/" + extractFileName(props.photo)
+            }
             width={128}
             height={128}
             alt="profile"
@@ -43,7 +48,7 @@ const Dp = ({ photo }) => {
         ) : (
           <FaUser className="text-9xl bg-secondary-400 rounded-full p-2" />
         )}
-        <div className="absolute w-full h-16 bottom-0 left-0 bg-[#4645453d] rounded-b-full">
+        <div className="absolute w-full h-16 bottom-0 left-0 bg-[#46454573] rounded-b-full">
           <label htmlFor="image">
             <FaEdit className="text-white text-2xl cursor-pointer absolute z-40 left-1/2 bottom-4 -translate-x-1/2 hover:scale-105 hover:opacity-80 transition-all duration-500" />
             <input

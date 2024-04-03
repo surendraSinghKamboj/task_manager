@@ -11,11 +11,10 @@ export const fileWriter = async (image) => {
       image.name
     )}`;
 
-    const fileStatus = await writeFile(pathOfImage, bufferData);
-
-    console.log(fileStatus);
+    await writeFile(pathOfImage, bufferData);
 
     console.log("Image uploaded successfully:", pathOfImage);
+
     return pathOfImage;
   } catch (error) {
     console.error("Error  :   ", error);

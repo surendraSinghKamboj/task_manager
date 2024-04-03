@@ -41,11 +41,11 @@ export const fetchProfile = async () => {
     redirect("/");
   }
 
-  return {
+  return JSON.stringify({
     _id: user._id,
     name: user.name,
     email: user.email,
     contact: user.contact,
     photo: user.photo,
-  };
+  });
 };

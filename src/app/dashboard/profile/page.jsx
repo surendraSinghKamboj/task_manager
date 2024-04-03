@@ -3,7 +3,8 @@ import Dp from "@/components/profile/Dp";
 import React from "react";
 
 const Profile = async () => {
-  const data = await fetchProfile();
+  const res = await fetchProfile();
+  const data = JSON.parse(res);
   //--------------------------------Data Type--------------------------------
   /**
    * { name: user.name, email: user.email, contact: user.contact }
@@ -20,7 +21,6 @@ const Profile = async () => {
 
       {/* Profile Component */}
       <Dp photo={data?.photo} userId={data._id} />
-
 
       <h4 className="w-1/2 border-b-2 border-t-2 border-secondary-700 text-center mt-4">
         Your Profile
