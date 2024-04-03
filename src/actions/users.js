@@ -1,12 +1,12 @@
 "use server";
 
 import { connectToDatabase } from "@/db/dbconnect";
-import { Task } from "@/models/Task";
 import { verifyToken } from "@/libs/verify_token";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import User from "@/models/Users";
 
-export const getTask = async (taskId, projectId) => {
+export const searchUsers = async (query) => {
   const auth = cookies().get("auth")?.value;
   if (!auth) {
     redirect("/");
@@ -15,23 +15,27 @@ export const getTask = async (taskId, projectId) => {
   if (!verify.valid) {
     redirect("/");
   }
-  let task;
+
+  let users;
+
   try {
     await connectToDatabase();
-    task = await Task.findById(taskId);
-    if (!task) {
-      task = { status: false };
+
+    // Query the database
+    users = await User.find({
+      $or: [
+        { name: { $regex: query.query, $options: "i" } },
+        { email: { $regex: query.query, $options: "i" } },
+      ],
+    });
+
+    if (!users) {
+      users = [];
     }
-    task = { status: true, task };
   } catch (error) {
-    console.log(error);
-    task = { staus: false };
+    console.error(error);
+    users = [];
   }
 
-  if (!task.status) {
-    redirect(`/dashboard/projects/${projectId}`);
-  }
-
-  
-  return task;
+  return JSON.stringify(users);
 };

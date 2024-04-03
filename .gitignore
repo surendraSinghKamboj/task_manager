@@ -42,3 +42,8 @@ next-env.d.ts
 file.d
 
 .eslintrc.json
+
+
+/src/uploads/*
+!/src/uploads/.gitkeep
+

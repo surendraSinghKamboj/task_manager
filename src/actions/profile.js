@@ -40,6 +40,12 @@ export const fetchProfile = async () => {
   if (!user) {
     redirect("/");
   }
-  
-  return { name: user.name, email: user.email, contact: user.contact };
+
+  return JSON.stringify({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    contact: user.contact,
+    photo: user.photo,
+  });
 };
