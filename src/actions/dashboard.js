@@ -14,7 +14,7 @@ export const fetchUser = async (type) => {
     redirect("/");
   }
   if (type) {
-    return { user: { name: verify.decoded.name } };
+    return { user: { name: verify.decoded.name,photo : verify.decoded.photo } };
   }
 
   let projectsNumber = await Project.countDocuments({

@@ -22,7 +22,8 @@ export async function verifyToken(token) {
       valid: true,
       decoded: {
         ...decoded,
-        name: user.name, 
+        name: user.name,
+        photo: user?.photo ? user.photo : null,
       },
     };
   } catch (err) {
