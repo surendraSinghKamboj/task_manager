@@ -45,4 +45,5 @@ file.d
 
 
 /src/uploads/*
-!/src/uploads/
+!/src/uploads/.gitkeep
+
