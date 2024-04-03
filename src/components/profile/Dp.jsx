@@ -1,32 +1,29 @@
 "use client";
 import { FaUser, FaEdit } from "react-icons/fa";
 import Image from "next/image";
-import axios from "axios";
 
 import React, { useState } from "react";
-// import { saveFile } from "@/actions/files";
+import { saveFile } from "@/actions/files";
+import { extractFileName } from "@/libs/extractFilename";
 
-const Dp = ({ photo, userId }) => {
+const Dp = ({ photo }) => {
   const [imageSrc, setImageSrc] = useState("");
-  const [image, setImage] = useState(null);
 
-  const handleUpload = async () => {
+  const handleUpload = async (file) => {
     const formData = new FormData();
-    formData.append("image", image);
-    // api calling
-
-    const response = await axios.post("/api/v1/users/file", formData);
-    console.log(response.data);
+    formData.append("image", file);
+    const res = await saveFile(formData);
+    console.log(res);
   };
 
   const handleChange = (e) => {
     const file = e.target.files[0];
-    setImage((prev) => file);
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImageSrc(reader.result);
-        handleUpload();
+        handleUpload(file);
       };
       reader.readAsDataURL(file);
     }
@@ -37,7 +34,7 @@ const Dp = ({ photo, userId }) => {
       <div className="relative">
         {photo ? (
           <Image
-            src={imageSrc ? imageSrc : photo}
+            src={imageSrc ? imageSrc : "/profile/pic/" + extractFileName(photo)}
             width={128}
             height={128}
             alt="profile"

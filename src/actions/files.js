@@ -1,26 +1,13 @@
 "use server";
 
-import path from "path";
-import fs from "fs";
 import User from "@/models/Users";
 import { connectToDatabase } from "@/db/dbconnect";
 import { cookies } from "next/headers";
 import { verifyToken } from "@/libs/verify_token";
-import { blobToBuffer } from "@/libs/blobToBuffer";
+import { fileWriter } from "@/libs/fileWriter";
+import { deleteFile } from "@/libs/deleteFile";
 
-export const saveFile = async (FormData) => {
-  const  image  = FormData.get("image");
-
-  console.log(image)
-  console.log(await FormData)
-
-  const uploadDirectory = path.join(__dirname, "../uploads");
-
-  // Generate a unique filename for the image
-  const fileName = `image_${Date.now()}.png`;
-
-  let result;
-
+export const saveFile = async (formdata) => {
   const auth = cookies().get("auth")?.value;
   if (!auth) {
     redirect("/");
@@ -30,21 +17,36 @@ export const saveFile = async (FormData) => {
     redirect("/");
   }
 
-  // try {
-  //   // Check if the upload directory exists, if not, create it
-  //   if (!fs.existsSync(uploadDirectory)) {
-  //     fs.mkdirSync(uploadDirectory, { recursive: true });
-  //   }
+  const image = formdata.get("image");
 
-    
+  let result;
+  let user;
 
-  //   result = { status: true, message: "file Saved", fileName };
+  try {
+    await connectToDatabase();
+    user = await User.findById(verify.decoded._id);
+    if (user.photo) {
+      const status = deleteFile(user.photo);
+    }
 
-
-  // } catch (error) {
-  //   console.log(error);
-  //   result = { status: false, message: "file not saved" };
-  // }
+    const status = await fileWriter(image);
+    if (!status) {
+      result = { status: false, message: "File not Saved." };
+    }
+    if (status) {
+      user = await User.findByIdAndUpdate(verify.decoded._id, {
+        photo: status,
+      });
+      if (!user) {
+        result = { status: false, message: "File not Saved." };
+      } else {
+        result = { status: true, message: "File Saved Successfully." };
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    result = { status: false, message: "File not Saved." };
+  }
 
   return JSON.stringify(result);
 };

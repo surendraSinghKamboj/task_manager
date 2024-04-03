@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import path from "path";
 import { writeFile } from "fs/promises";
 
-export const POST = async (req) => {
+export const GET = async (req) => {
   try {
     const file = await req.formData();
 
