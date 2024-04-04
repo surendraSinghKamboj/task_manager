@@ -43,7 +43,7 @@ const ProjectDetails = async ({ params: { projectId } }) => {
   const { project, createdBy, tasks } = data;
 
   
-  console.log(project)
+  // console.log(project)
   return !data ? (
     <div className="w-full h-screen flex justify-center items-center">
       <h6>No Project Found</h6>
