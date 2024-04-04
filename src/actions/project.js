@@ -16,13 +16,13 @@ export const projectById = async (_id) => {
     const verify = await verifyToken(auth);
     await connectToDatabase();
 
-    const project = await Project.findById(_id); // Await for the project to resolve
+    const project = await Project.findById(_id).populate("createdBy", "name photo").populate("colabs","name photo");
     if (!project) {
       return false;
     }
     let createdBy = verify.decoded.name;
 
-    const tasks = await Task.find({ project: _id }).populate("createdBy", "name");
+    const tasks = await Task.find({ project: _id }).populate("createdBy", "name photo");
 
     return { project, createdBy, tasks };
   } catch (error) {
