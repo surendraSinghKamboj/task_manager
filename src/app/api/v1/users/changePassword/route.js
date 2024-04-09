@@ -1,7 +1,7 @@
 import { connectToDatabase } from "@/db/dbconnect";
 import generateSHA512 from "@/libs/sha_hash";
 import { NextResponse } from "next/server";
-import User from "@/models/User";
+import User from "@/models/Users";
 
 export const POST = async (req) => {
   try {
