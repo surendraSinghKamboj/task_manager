@@ -4,7 +4,7 @@ import Requests from "@/models/Requests";
 import { verifyToken } from "@/libs/verify_token";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import Project, { findById } from "@/models/Projects";
+import Project from "@/models/Projects";
 
 export const makeRequest = async (data) => {
   const { projectId, userId } = data;
@@ -29,6 +29,23 @@ export const makeRequest = async (data) => {
 
   try {
     await connectToDatabase();
+
+    const single = await Project.findById(projectId);
+
+    if (!single) {
+      return JSON.stringify({
+        status: false,
+        message: "Project not found",
+      });
+    }
+
+    if (single.createdBy.toString() === userId.toString()) {
+      return JSON.stringify({
+        status: false,
+        message: "User is Owner of this project.",
+      });
+    }
+
     const res = await Requests.findOne({
       projectId: projectId,
       assignTo: userId,
@@ -38,6 +55,18 @@ export const makeRequest = async (data) => {
       return JSON.stringify({
         status: true,
         message: "You have already reqested",
+      });
+    }
+
+    const project = await Project.find({
+      projectId: projectId,
+      colabs: userId,
+    });
+
+    if (!project) {
+      return JSON.stringify({
+        status: true,
+        message: "User already have access.",
       });
     }
 
@@ -52,8 +81,6 @@ export const makeRequest = async (data) => {
 
     status = { status: true, message: "Request Sent Successfully." };
   } catch (error) {
-    console.log(error);
-    console.table(data);
     status = { status: false, message: "Internal Server Error." };
   }
 
@@ -71,12 +98,6 @@ export const findRequest = async () => {
     redirect("/");
   }
 
-  // if (verify.decoded._id === userId) {
-  //   return JSON.stringify({
-  //     status: true,
-  //     message: "You can not add your Self.",
-  //   });
-  // }
 
   let requestData;
   try {
@@ -138,7 +159,7 @@ export const acceptRequest = async (data) => {
 };
 
 export const rejectRequest = async (data) => {
-  const { reqId} = data;
+  const { reqId } = data;
   const auth = cookies().get("auth")?.value;
   if (!auth) {
     redirect("/");

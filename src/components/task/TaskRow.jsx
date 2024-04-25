@@ -44,7 +44,7 @@ const TaskRow = ({ data, projectId }) => {
             data.map((task, index) => (
               <tr
                 key={index}
-                className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
+                className={index % 2 === 0 ? "bg-gray-100 max-h-5" : "bg-white max-h-5"}
               >
                 <td className="border px-4 py-2">{index + 1}</td>
                 <td className="border px-4 py-2">
