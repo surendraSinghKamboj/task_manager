@@ -17,6 +17,7 @@ export const projectById = async (_id) => {
     await connectToDatabase();
 
     const project = await Project.findById(_id).populate("createdBy", "name photo").populate("colabs","name photo");
+   
     if (!project) {
       return false;
     }

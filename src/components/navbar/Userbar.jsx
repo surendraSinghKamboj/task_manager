@@ -4,12 +4,17 @@ import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import { extractFileName } from "@/libs/extractFilename";
+import Request from "./request/Request";
+import { findRequest } from "@/actions/request";
 
 const Userbar = async () => {
   const data = await fetchUser("user"); //  { user: { name: 'John Doe', photo: './src/uploads/1712166206063.jpg' } }
 
+  const datareq = await findRequest();
+
   return (
     <div className="w-full flex justify-end bg-gradient-to-r from-primary-700 to-secondary-700 p-5 text-white">
+      <Request requestData={datareq} />
       <div className="group">
         {data.user.photo ? (
           <Image

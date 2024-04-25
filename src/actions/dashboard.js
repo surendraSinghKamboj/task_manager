@@ -14,7 +14,7 @@ export const fetchUser = async (type) => {
     redirect("/");
   }
   if (type) {
-    return { user: { name: verify.decoded.name,photo : verify.decoded.photo } };
+    return { user: { name: verify.decoded.name, photo: verify.decoded.photo } };
   }
 
   let projectsNumber = await Project.countDocuments({
@@ -24,7 +24,9 @@ export const fetchUser = async (type) => {
     projectsNumber = 0;
   }
 
-  let projects = await Project.find({ createdBy: verify.decoded._id })
+  let projects = await Project.find({
+    $or: [{ createdBy: verify.decoded._id }, { colabs: verify.decoded._id }],
+  })
     .sort({ updatedAt: -1 })
     .limit(3)
     .populate("createdBy", "name")
